@@ -9,17 +9,17 @@
       
       
       
-        <link rel="prev" href="../URDF/">
+        <link rel="prev" href="../Nav/">
       
       
-        <link rel="next" href="../Plugins/">
+        <link rel="next" href="../Bt/">
       
       <link rel="icon" href="../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.0.6">
     
     
       
-        <title>Transformations - Robot Rescue</title>
+        <title>Real-time odometry - Robot Rescue</title>
       
     
     
@@ -67,7 +67,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#tf-statique" class="md-skip">
+        <a href="#generalite" class="md-skip">
           Skip to content
         </a>
       
@@ -100,7 +100,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Transformations
+              Real-time odometry
             
           </span>
         </div>
@@ -214,20 +214,18 @@
 
   
   
-    
-  
   
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
       
       
       
-      <input class="md-nav__toggle md-toggle " data-md-toggle="__nav_3" type="checkbox" id="__nav_3" checked>
+      <input class="md-nav__toggle md-toggle " data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
       
       
       
-        <label class="md-nav__link" for="__nav_3" tabindex="0" aria-expanded="true">
+        <label class="md-nav__link" for="__nav_3" tabindex="0" aria-expanded="false">
           Simultation
           <span class="md-nav__icon md-icon"></span>
         </label>
@@ -257,52 +255,11 @@
               
   
   
-    
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          Transformations
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../TF/" class="md-nav__link">
         Transformations
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#launch-file" class="md-nav__link">
-    Launch file
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -412,11 +369,21 @@
 
   
   
+    
   
-    <li class="md-nav__item">
-      <a href="../odometry/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         Real-time odometry
       </a>
+      
     </li>
   
 
@@ -456,21 +423,6 @@
     
   
   
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#launch-file" class="md-nav__link">
-    Launch file
-  </a>
-  
-</li>
-      
-    </ul>
-  
 </nav>
                   </div>
                 </div>
@@ -485,26 +437,13 @@
 
 
 
-<h1 id="tf-statique">TF statique</h1>
-<p>Notre robot est composé de différente corps ( flipper, roues, lidar ...) qui disposent chaqun de leur propre coordonées. Pour visualiser notre robot dans l'espace il est necessaire de relier ces coorodnées entre elles par le biai de transformation (TF).</p>
-<p>Dans notre cas, les différents corps sont fixes les un des autres. Pour les relier on parle alors de TF statique.
-Pour réaliser un TF statique nous pouvons utiliser le node <strong>robot_state_publisher</strong> et <strong>joint_state_publisher</strong> qui vont lire l'urdf de notre modèle et creer les TF entre les different joints.</p>
-<h2 id="launch-file">Launch file</h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nt">&lt;launch&gt;</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">  </span><span class="nt">&lt;arg</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;model&quot;</span><span class="w"> </span><span class="na">default=</span><span class="s">&quot;$(find rescue_description)/urdf/rescue.xacro&quot;</span><span class="nt">/&gt;</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">  </span><span class="nt">&lt;arg</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;gui&quot;</span><span class="w"> </span><span class="na">default=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">  </span><span class="nt">&lt;arg</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;rvizconfig&quot;</span><span class="w"> </span><span class="na">default=</span><span class="s">&quot;$(find rescue_description)/launch/urdf.rviz&quot;</span><span class="nt">/&gt;</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">  </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;robot_description&quot;</span><span class="w"> </span><span class="na">command=</span><span class="s">&quot;$(find xacro)/xacro $(arg model)&quot;</span><span class="nt">/&gt;</span>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">  </span><span class="nt">&lt;param</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;use_gui&quot;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;$(arg gui)&quot;</span><span class="nt">/&gt;</span>
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">  </span><span class="nt">&lt;node</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;joint_state_publisher&quot;</span><span class="w"> </span><span class="na">pkg=</span><span class="s">&quot;joint_state_publisher&quot;</span><span class="w"> </span><span class="na">type=</span><span class="s">&quot;joint_state_publisher&quot;</span><span class="nt">/&gt;</span>
-<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">  </span><span class="nt">&lt;node</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;robot_state_publisher&quot;</span><span class="w"> </span><span class="na">pkg=</span><span class="s">&quot;robot_state_publisher&quot;</span><span class="w"> </span><span class="na">type=</span><span class="s">&quot;robot_state_publisher&quot;</span><span class="nt">/&gt;</span>
-<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">  </span><span class="nt">&lt;node</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;rviz&quot;</span><span class="w"> </span><span class="na">pkg=</span><span class="s">&quot;rviz&quot;</span><span class="w"> </span><span class="na">args=</span><span class="s">&quot;-d $(arg rvizconfig)&quot;</span><span class="w"> </span><span class="na">type=</span><span class="s">&quot;rviz&quot;</span><span class="w"> </span><span class="na">required=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
-<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="nt">&lt;/launch&gt;</span>
-</code></pre></div>
-<p>Lancement du launch file:</p>
-<div class="highlight"><pre><span></span><code>roslaunch rescue_description display.launch
-</code></pre></div>
-<p><img alt="Image title" src="../images/URDF/8.png" /></p>
+<h1 id="generalite">Généralité</h1>
+<p>L'odométrie est un moyen d'éstimer la position d'un véhicule en mouvement. Elle est présente sur la majorité des robots mobiles au moyen d'un ou plusieurs capteurs embarqués premettant la mesure du déplacement et l'orientation du robot. </p>
+<p>Le principe repose sur le traitement des mesures acquises par le(s) capteur(s) utilisé(s) afin dans le but de reconstituer le mouvement global du robot en partant d'une position initiale connue. La reconstitution du mouvement global se fait en intégrant les déplacements mesurés.</p>
+<p>Comme mentionné plus haut, l'odometrie peut se baser sur un ou plusieurs capteurs tels que des codeurs incrémentaux, des centrale inertielle (IMU) ou encore des caméras (mono, stéréo, RGB-D). En effet, dans le domaine de l'odométrie, on retrouve quelques termes comme "visual odometry", "visual inertial odometry" ou encore "RGB-D odometry". </p>
+<p>En fonction des capteurs utilisés, le traitement des mesures peut être "gourmand" en ressource. De ce fait, l'em</p>
+<h1 id="visual-odometry">Visual odometry</h1>
+<h1 id="visual-inertial-odometry-vio">Visual Inertial odometry (VIO)</h1>
 
 
 
